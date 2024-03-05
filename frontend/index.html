@@ -24,23 +24,17 @@
   </head>
 
   <body>
-    <div class="container d-flex flex-column align-items-center my-3">
-      <h1 class="my-3">Todolist!</h1>
+    <div class="container d-flex flex-column align-items-center my-3" id="app">
+      <h1 class="my-3">New Todolist!</h1>
       <div class="card w-50 p-3">
         <ul class="list-group">
-          <li class="list-group-item list-group-item-info p-2">
-            Tidy your apartment
+          <li
+            class="list-group-item list-group-item-info p-2"
+            v-for="todo in todos"
+            :class="todo.done ? 'text-decoration-line-through' : ''"
+          >
+            {{ todo.task }}
           </li>
-          <li class="list-group-item list-group-item-info p-2">
-            Do your homework
-          </li>
-          <li class="list-group-item list-group-item-info p-2">
-            Do your chores
-          </li>
-          <li class="list-group-item list-group-item-info p-2">
-            Go out with friends
-          </li>
-          <li class="list-group-item list-group-item-info p-2">Go shopping</li>
         </ul>
       </div>
     </div>
