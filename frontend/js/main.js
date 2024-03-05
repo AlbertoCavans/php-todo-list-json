@@ -4,7 +4,7 @@ const app = createApp({
   data() {
     return {
       todos: [
-        {
+        /*        {
           task: "task 1",
           done: false,
         },
@@ -23,9 +23,21 @@ const app = createApp({
         {
           task: "task 5",
           done: false,
-        },
+        }, */
       ],
     };
+  },
+
+  methods: {
+    fetchTodos() {
+      axios.get("../backend/API/read-todos.php").then((response) => {
+        console.log(response);
+      });
+    },
+  },
+
+  mounted() {
+    this.fetchTodos();
   },
 });
 
