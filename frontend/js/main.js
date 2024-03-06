@@ -3,36 +3,37 @@ const { createApp } = Vue;
 const app = createApp({
   data() {
     return {
-      todos: [
-        /*        {
-          task: "task 1",
-          done: false,
-        },
-        {
-          task: "task 2",
-          done: false,
-        },
-        {
-          task: "task 3",
-          done: true,
-        },
-        {
-          task: "task 4",
-          done: false,
-        },
-        {
-          task: "task 5",
-          done: false,
-        }, */
-      ],
+      todos: [],
+
+      newTodo: {
+        task: "",
+        done: false,
+      },
     };
   },
 
   methods: {
     fetchTodos() {
       axios.get("../backend/API/read-todos.php").then((response) => {
-        console.log(response);
+        this.todos = response.data;
       });
+    },
+
+    fetchNewTodo() {
+      const data = {
+        task: this.newTodo.task,
+        done: false,
+      };
+
+      const params = {
+        headers: { "Content-Type": "multipart/form-data" },
+      };
+
+      axios
+        .post("../backend/API/store-todos.php", data, params)
+        .then((response) => {
+          this.todos = response.data;
+        });
     },
   },
 
