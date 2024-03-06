@@ -13,12 +13,14 @@ const app = createApp({
   },
 
   methods: {
+    /* get todos from API */
     fetchTodos() {
       axios.get("../backend/API/read-todos.php").then((response) => {
         this.todos = response.data;
       });
     },
 
+    /* send new todo to API and get new full-todos */
     fetchNewTodo() {
       const data = {
         task: this.newTodo.task,
@@ -33,6 +35,27 @@ const app = createApp({
         .post("../backend/API/store-todos.php", data, params)
         .then((response) => {
           this.todos = response.data;
+        });
+    },
+
+    /* notDone/done todo */
+    fetchDoneNotDoneTodo(todo, index) {
+      const statusTodo = !todo.done;
+
+      const data = {
+        index,
+        task: todo.task,
+        done: statusTodo,
+      };
+
+      const params = {
+        headers: { "Content-Type": "multipart/form-data" },
+      };
+
+      axios
+        .post("../backend/API/doneNotDone-todos.php", data, params)
+        .then((response) => {
+          console.log(response.data);
         });
     },
   },
